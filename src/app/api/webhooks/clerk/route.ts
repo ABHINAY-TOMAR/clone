@@ -3,14 +3,20 @@ import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { ConvexHttpClient } from "convex/browser";
 
-const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL || "");
-
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error("Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local");
   }
+
+  const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+  if (!convexUrl) {
+    console.error("Missing NEXT_PUBLIC_CONVEX_URL");
+    return new Response("Server configuration error", { status: 500 });
+  }
+
+  const convex = new ConvexHttpClient(convexUrl);
 
   const headerPayload = await headers();
   const svix_id = headerPayload.get("svix-id");
