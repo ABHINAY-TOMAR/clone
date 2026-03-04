@@ -1,13 +1,16 @@
 "use client";
 
 import { useIDEStore, DBFile } from "@/store/useIDEStore";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { FileCode2 } from "lucide-react";
+
+// Placeholder until convex query is connected
+const EMPTY_FILES: DBFile[] = [];
 
 export default function Sidebar() {
   const { activeProjectId, activeFileId, setActiveFileId, setFiles } = useIDEStore();
 
-  const files: DBFile[] = useMemo(() => [], []); // Placeholder until convex generates
+  const files = EMPTY_FILES;
 
   useEffect(() => {
     if (files) {
