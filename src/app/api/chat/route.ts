@@ -2,20 +2,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { messages, context } = await req.json();
-
-    // Setup for actual streaming API calls using OpenRouter or OpenAI
-    // For now we will return a mocked placeholder response
-    
-    // Construct Prompt
-    const systemPrompt = `You are a KOOLAGE AI pair programmer inside the Antigravity IDE.
-You have access to the user's project files: ${JSON.stringify(context?.files || [])}.
-Provide concise, correct, and clear responses.`;
-
-    const fullMessages = [
-      { role: "system", content: systemPrompt },
-      ...messages
-    ];
+    // In production, destructure `messages` and `context` from the request body
+    // and use them with the Vercel AI SDK + OpenRouter for actual streaming.
+    await req.json();
 
     // Placeholder simulated response. 
     // In production, this would use the `ai` package (Vercel AI SDK) with streamText

@@ -4,7 +4,6 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 import { useIDEStore } from "@/store/useIDEStore";
-import { useEffect } from "react";
 
 export default function CanvasPanel() {
   const { activeProjectId } = useIDEStore();

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Play, Square, Terminal as TerminalIcon } from "lucide-react";
 
 export default function ExecutionPanel() {
-  const { activeProjectId, activeFileId, files } = useIDEStore();
+  const { activeFileId, files } = useIDEStore();
   const [output, setOutput] = useState<string[]>(["Antigravity Sandbox Initialized v1.0.0", "Waiting for execution..."]);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -36,7 +36,7 @@ export default function ExecutionPanel() {
       if (data.error) {
         setOutput(prev => [...prev, `Error: ${data.error}`]);
       }
-    } catch (err) {
+    } catch {
       setOutput(prev => [...prev, `[System Error]: Failed to connect to execution engine.`]);
     } finally {
       setIsRunning(false);
