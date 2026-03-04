@@ -2,13 +2,8 @@
 
 import Editor from "@monaco-editor/react";
 import { useIDEStore } from "@/store/useIDEStore";
-import { useCallback, useRef } from "react";
-import { useMutation } from "convex/react";
-// We cast the generic mutation to avoid errors before build
-// import { api } from "../../../../convex/_generated/api";
-
 export default function EditorPanel() {
-  const { activeFileId, files, unsavedContent, setUnsavedContent, clearUnsavedContent } = useIDEStore();
+  const { activeFileId, files, unsavedContent, setUnsavedContent } = useIDEStore();
 
   const activeFile = files.find(f => f._id === activeFileId);
   

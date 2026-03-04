@@ -2,6 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { ConvexHttpClient } from "convex/browser";
+import type { FunctionReference } from "convex/server";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
@@ -53,11 +54,10 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created" || eventType === "user.updated") {
-    // @ts-ignore
     const email = evt.data.email_addresses?.[0]?.email_address;
     if (email && id) {
       try {
-        await convex.mutation("users:syncUser" as any, {
+        await convex.mutation("users:syncUser" as unknown as FunctionReference<"mutation">, {
           clerkId: id,
           email: email,
         });
